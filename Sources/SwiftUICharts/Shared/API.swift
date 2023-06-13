@@ -75,10 +75,11 @@ extension LegendData {
     public func getLegend(
         width: CGFloat = 40,
         font: Font = .caption,
-        textColor: Color = .primary
+        textColor: Color = .primary,
+        chartsType: ChartType = .line
     ) -> some View {
         Group {
-            switch self.chartType {
+            switch chartType {
             case .line:
                 if let stroke = self.strokeStyle {
                     let strokeStyle = stroke.strokeToStrokeStyle()

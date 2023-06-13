@@ -18,6 +18,7 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
     private let font: Font
     private let textColor: Color
     private let topPadding: CGFloat
+    var chartsType: ChartType = .line
     
     internal init(
         chartData: T,
@@ -25,7 +26,8 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
         width: CGFloat,
         font: Font,
         textColor: Color,
-        topPadding: CGFloat
+        topPadding: CGFloat,
+        chartsType: ChartType = .line
     ) {
         self.chartData = chartData
         self.columns = columns
@@ -33,6 +35,7 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
         self.font = font
         self.textColor = textColor
         self.topPadding = topPadding
+        self.chartsType = chartsType
     }
     
     internal func body(content: Content) -> some View {
@@ -44,7 +47,8 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
                                columns: columns,
                                width: width,
                                font: font,
-                               textColor: textColor)
+                               textColor: textColor,
+                               chartsType: chartsType)
                         .padding(.top, topPadding)
                 }
             } else { content }
@@ -68,13 +72,15 @@ extension View {
         iconWidth: CGFloat = 40,
         font: Font = .caption,
         textColor: Color = Color.primary,
-        topPadding: CGFloat = 18
+        topPadding: CGFloat = 18,
+        chartsType: ChartType = .line
     ) -> some View {
         self.modifier(Legends(chartData: chartData,
                               columns: columns,
                               width: iconWidth,
                               font: font,
                               textColor: textColor,
-                              topPadding: topPadding))
+                              topPadding: topPadding,
+                              chartsType: chartsType))
     }
 }
