@@ -17,24 +17,27 @@ internal struct LegendView<T>: View where T: CTChartData {
     private let width: CGFloat
     private let font: Font
     private let textColor: Color
+    var chartsType: ChartType = .line
     
     internal init(chartData: T,
                   columns: [GridItem],
                   width: CGFloat,
                   font: Font,
-                  textColor: Color
+                  textColor: Color,
+                  chartsType: ChartType = .line
     ) {
         self.chartData = chartData
         self.columns = columns
         self.width = width
         self.font = font
         self.textColor = textColor
+        self.chartsType = chartsType
     }
     
     internal var body: some View {
         LazyVGrid(columns: columns, alignment: .leading) {
             ForEach(chartData.legends, id: \.id) { legend in
-                legend.getLegend(width: width, font: font, textColor: textColor)
+                legend.getLegend(width: width, font: font, textColor: textColor, chartsType: chartsType)
                     .if(scaleLegendBar(legend: legend)) { $0.scaleEffect(1.2, anchor: .leading) }
                     .if(scaleLegendPie(legend: legend)) { $0.scaleEffect(1.2, anchor: .leading) }
                     .accessibilityLabel(LocalizedStringKey(legend.accessibilityLegendLabel()))
