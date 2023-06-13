@@ -79,7 +79,7 @@ extension LegendData {
         chartsType: ChartType = .line
     ) -> some View {
         Group {
-            switch chartType {
+            switch chartsType {
             case .line:
                 if let stroke = self.strokeStyle {
                     let strokeStyle = stroke.strokeToStrokeStyle()
