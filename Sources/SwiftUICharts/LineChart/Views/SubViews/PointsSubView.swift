@@ -73,17 +73,17 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
             }
         case .outline:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
-                if dataSets.pointStyle.showValue {
-                    TextView(value: dataSets.dataPoints[index].value,
-                             range: range,
-                             height: dataSets.pointStyle.pointSize,
-                             minValue: minValue,
-                             index: index,
-                             width: dataSets.pointStyle.pointSize,
-                             count: dataSets.dataPoints.count,
-                             pointSize: dataSets.pointStyle.pointSize,
-                             color: dataSets.pointStyle.fillColour)
-                }
+//                if dataSets.pointStyle.showValue {
+//                    TextView(value: dataSets.dataPoints[index].value,
+//                             range: range,
+//                             height: dataSets.pointStyle.pointSize,
+//                             minValue: minValue,
+//                             index: index,
+//                             width: dataSets.pointStyle.pointSize,
+//                             count: dataSets.dataPoints.count,
+//                             pointSize: dataSets.pointStyle.pointSize,
+//                             color: dataSets.pointStyle.fillColour)
+//                }
                 Point(value: dataSets.dataPoints[index].value,
                        index: index,
                        minValue: minValue,
@@ -101,6 +101,18 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                             .stroke(dataSets.dataPoints[index].pointColour?.border ?? dataSets.pointStyle.borderColour,
                                     lineWidth: dataSets.pointStyle.lineWidth)
                     })
+                    .overlay(
+                                    Text("\(dataSets.dataPoints[index].value)")
+                                        //Limit to 1 line until your letterLimit
+                                        .lineLimit(1)
+                                        //Clips it to shape
+                                        .clipShape(ContainerRelativeShape()).padding()
+                                        .foregroundColor(Color.red)
+                                        //This makes super tiny letters so adjust to your use case
+                                        .minimumScaleFactor(0.1)
+                                    
+                                )
+
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
                 self.startAnimation = true
@@ -108,6 +120,7 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
             .animateOnDisappear(disabled: disableAnimation, using: animation) {
                 self.startAnimation = false
             }
+            
         case .filledOutLine:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
                 Point(value: dataSets.dataPoints[index].value,
