@@ -31,7 +31,10 @@ public struct PointStyle: Hashable {
     
     /// Shape of the points
     public var pointShape: PointShape
-    
+
+    /// show value
+    public var showValue: Bool
+
     /// Styling for the point markers.
     /// - Parameters:
     ///   - pointSize: Overall size of the mark
@@ -46,7 +49,8 @@ public struct PointStyle: Hashable {
         fillColour: Color = Color(.gray),
         lineWidth: CGFloat = 3,
         pointType: PointType = .outline,
-        pointShape: PointShape = .circle
+        pointShape: PointShape = .circle,
+        showValue: Bool = false
     ) {
         self.pointSize = pointSize
         self.borderColour = borderColour
@@ -54,6 +58,7 @@ public struct PointStyle: Hashable {
         self.lineWidth = lineWidth
         self.pointType = pointType
         self.pointShape = pointShape
+        self.showValue = showValue
     }
 }
 
