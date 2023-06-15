@@ -73,14 +73,15 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
             }
         case .outline:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
-                Point(value: dataSets.dataPoints[index].value,
-                       index: index,
-                       minValue: minValue,
-                       range: range,
-                       datapointCount: dataSets.dataPoints.count,
-                       pointSize: dataSets.pointStyle.pointSize,
-                       ignoreZero: dataSets.style.ignoreZero,
-                       pointStyle: dataSets.pointStyle.pointShape)
+                VStack {
+                    Point(value: dataSets.dataPoints[index].value,
+                          index: index,
+                          minValue: minValue,
+                          range: range,
+                          datapointCount: dataSets.dataPoints.count,
+                          pointSize: dataSets.pointStyle.pointSize,
+                          ignoreZero: dataSets.style.ignoreZero,
+                          pointStyle: dataSets.pointStyle.pointShape)
                     .ifElse(!isFilled, if: {
                         $0.trim(to: animationValue)
                             .stroke(dataSets.dataPoints[index].pointColour?.border ?? dataSets.pointStyle.borderColour,
@@ -90,10 +91,12 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                             .stroke(dataSets.dataPoints[index].pointColour?.border ?? dataSets.pointStyle.borderColour,
                                     lineWidth: dataSets.pointStyle.lineWidth)
                     })
-                if dataSets.pointStyle.showValue {
-                    Text("\(dataSets.dataPoints[index].value)")
-                        .font(Font.system(size: 7.0))
-                        .foregroundColor(dataSets.pointStyle.fillColour)                        .frame(alignment: .center)
+                    if dataSets.pointStyle.showValue {
+                        Text("\(dataSets.dataPoints[index].value)")
+                            .font(Font.system(size: 7.0))
+                            .foregroundColor(dataSets.pointStyle.fillColour)
+                            .frame(alignment: .center)
+                    }
                 }
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
