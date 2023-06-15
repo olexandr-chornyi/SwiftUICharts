@@ -101,17 +101,17 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                             .stroke(dataSets.dataPoints[index].pointColour?.border ?? dataSets.pointStyle.borderColour,
                                     lineWidth: dataSets.pointStyle.lineWidth)
                     })
-                    .overlay(
-                                    Text("\(dataSets.dataPoints[index].value)")
-                                        //Limit to 1 line until your letterLimit
-                                        .lineLimit(1)
-                                        //Clips it to shape
-                                        .clipShape(ContainerRelativeShape()).padding()
-                                        .foregroundColor(Color.red)
-                                        //This makes super tiny letters so adjust to your use case
-                                        .minimumScaleFactor(0.1)
-                                    
-                                )
+//                    .overlay(
+//                                    Text("\(dataSets.dataPoints[index].value)")
+//                                        //Limit to 1 line until your letterLimit
+//                                        .lineLimit(1)
+//                                        //Clips it to shape
+//                                        .clipShape(ContainerRelativeShape()).padding()
+//                                        .foregroundColor(Color.red)
+//                                        //This makes super tiny letters so adjust to your use case
+//                                        .minimumScaleFactor(0.1)
+//                                    
+//                                )
 
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
