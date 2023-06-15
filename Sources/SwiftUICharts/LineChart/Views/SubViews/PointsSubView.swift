@@ -182,9 +182,13 @@ struct TextView: View {
         let pointX: CGFloat = (CGFloat(index) * x) - offset
         let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + height) - offset
 
-        Text("\(value)")
-            .font(Font.system(size: 7.0))
-            .foregroundColor(color)
-            .position(x: pointX, y: pointY + height)
+        ZStack {
+            Text("\(value)")
+                .font(Font.system(size: 7.0))
+                .foregroundColor(color)
+                .position(x: pointX, y: pointY + height)
+                .frame(alignment: .center)
+            
+        }
     }
 }
