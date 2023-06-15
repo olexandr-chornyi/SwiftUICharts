@@ -73,6 +73,17 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
             }
         case .outline:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
+                if dataSets.pointStyle.showValue {
+                    TextView(value: dataSets.dataPoints[index].value,
+                             range: range,
+                             height: dataSets.pointStyle.pointSize,
+                             minValue: minValue,
+                             index: index,
+                             width: dataSets.pointStyle.pointSize,
+                             count: dataSets.dataPoints.count,
+                             pointSize: dataSets.pointStyle.pointSize,
+                             color: dataSets.pointStyle.fillColour)
+                }
                 Point(value: dataSets.dataPoints[index].value,
                        index: index,
                        minValue: minValue,
@@ -90,24 +101,6 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                             .stroke(dataSets.dataPoints[index].pointColour?.border ?? dataSets.pointStyle.borderColour,
                                     lineWidth: dataSets.pointStyle.lineWidth)
                     })
-//                if dataSets.pointStyle.showValue {
-//
-////                    let point: CGRect = CGRect(x: pointX, y: pointY, width: dataSets.pointStyle.pointSize, height: pointSize)
-//
-//
-//                    Text("\(dataSets.dataPoints[index].value)")
-//                        .font(Font.system(size: 7.0))
-//                        .foregroundColor(dataSets.pointStyle.fillColour)
-//                        .position(x: pointX, y: pointY)
-//                }
-                GeometryReader { geometry in
-                            let frame = geometry.frame(in: CoordinateSpace.local)
-                    Text("0")
-                        .font(Font.system(size: 7.0))
-                        .foregroundColor(dataSets.pointStyle.fillColour)
-                        .position(x: frame.origin.x, y: frame.origin.y)
-     //                       return Text("\(frame.origin.x), \(frame.origin.y), \(frame.size.width), \(frame.size.height)")
-                }
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
                 self.startAnimation = true
@@ -115,21 +108,6 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
             .animateOnDisappear(disabled: disableAnimation, using: animation) {
                 self.startAnimation = false
             }
-//            .overlay(
-//                        GeometryReader { proxy in
-//                            let x: CGFloat = dataSets.pointStyle.pointSize.width / CGFloat(dataSets.dataPoints.count-1)
-//                            let y: CGFloat = dataSets.pointStyle.pointSize.height / CGFloat(range)
-//                            let offset: CGFloat = dataSets.pointStyle.pointSize / CGFloat(2)
-//
-//                            let pointX: CGFloat = (CGFloat(index) * x) - offset
-//                            let pointY: CGFloat = ((CGFloat(dataSets.dataPoints[index].value - minValue) * -y) + dataSets.pointStyle.pointSize.height) - offset
-//
-//                            Text("\(dataSets.dataPoints[index].value)")
-//                                .font(Font.system(size: 7.0))
-//                                .foregroundColor(dataSets.pointStyle.fillColour)
-//                                .position(x: 10, y: 20)
-//                        }
-//                    )
         case .filledOutLine:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
                 Point(value: dataSets.dataPoints[index].value,
@@ -181,5 +159,32 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
         } else {
             return startAnimation ? 1 : 0
         }
+    }
+}
+
+struct TextView: View {
+    
+    var value: Double
+    var range: Double
+    var height: CGFloat
+    var minValue: Double
+    var index: Int
+    var width: CGFloat
+    var count: Int
+    var pointSize: CGFloat
+    var color: Color
+        
+    var body: some View {
+        let x: CGFloat = width / CGFloat(count-1)
+        let y: CGFloat = height / CGFloat(range)
+        let offset: CGFloat = pointSize / CGFloat(2)
+
+        let pointX: CGFloat = (CGFloat(index) * x) - offset
+        let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + height) - offset
+
+        Text("\(value)")
+            .font(Font.system(size: 7.0))
+            .foregroundColor(color)
+            .position(x: pointX, y: pointY + height)
     }
 }
