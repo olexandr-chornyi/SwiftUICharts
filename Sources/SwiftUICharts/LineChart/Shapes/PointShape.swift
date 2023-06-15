@@ -74,7 +74,8 @@ internal struct Point: Shape {
         case .roundSquare:
             path.addRoundedRect(in: point, cornerSize: CGSize(width: 3, height: 3))
         }
-        let label = "label"
+        let label = NSMutableAttributedString(string: "label")
         label.draw(at: CGPoint(x:point.origin.x, y:point.origin.y + 10))
+        label.draw(in: point)
     }
 }
