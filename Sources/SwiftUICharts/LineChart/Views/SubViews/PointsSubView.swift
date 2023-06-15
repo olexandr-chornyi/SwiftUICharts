@@ -62,7 +62,6 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                     Text("\(dataSets.dataPoints[index].value)")
                         .font(Font.system(size: 7.0))
                         .foregroundColor(dataSets.pointStyle.fillColour)
-                        .offset(y: dataSets.pointStyle.pointSize)
                         .frame(alignment: .center)
                 }
             }
@@ -94,9 +93,7 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                 if dataSets.pointStyle.showValue {
                     Text("\(dataSets.dataPoints[index].value)")
                         .font(Font.system(size: 7.0))
-                        .foregroundColor(dataSets.pointStyle.fillColour)
-                        .offset(y: dataSets.pointStyle.pointSize)
-                        .frame(alignment: .center)
+                        .foregroundColor(dataSets.pointStyle.fillColour)                        .frame(alignment: .center)
                 }
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
@@ -138,7 +135,6 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                     Text("\(dataSets.dataPoints[index].value)")
                         .font(Font.system(size: 7.0))
                         .foregroundColor(dataSets.pointStyle.fillColour)
-                        .offset(y: dataSets.pointStyle.pointSize)
                         .frame(alignment: .center)
                 }
             }
