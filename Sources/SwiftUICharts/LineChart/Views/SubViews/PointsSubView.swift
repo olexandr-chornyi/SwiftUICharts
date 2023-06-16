@@ -59,10 +59,18 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                             .fill(dataSets.dataPoints[index].pointColour?.fill ?? dataSets.pointStyle.fillColour)
                     })
                 if dataSets.pointStyle.showValue {
-                    Text("\(dataSets.dataPoints[index].value)")
-                        .font(Font.system(size: 7.0))
-                        .foregroundColor(dataSets.pointStyle.fillColour)
-                        .frame(alignment: .center)
+                    GeometryReader { geometry in
+                        TextView(value: dataSets.dataPoints[index].value,
+                                 range: range,
+                                 height: geometry.size.height,
+                                 minValue: minValue,
+                                 index: index,
+                                 width: geometry.size.width,
+                                 count: dataSets.dataPoints.count,
+                                 pointSize: dataSets.pointStyle.pointSize,
+                                 color: dataSets.pointStyle.fillColour,
+                                 font: dataSets.pointStyle.valueFont)
+                    }
                 }
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
@@ -73,17 +81,6 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
             }
         case .outline:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
-//                if dataSets.pointStyle.showValue {
-//                    TextView(value: dataSets.dataPoints[index].value,
-//                             range: range,
-//                             height: dataSets.pointStyle.pointSize,
-//                             minValue: minValue,
-//                             index: index,
-//                             width: dataSets.pointStyle.pointSize,
-//                             count: dataSets.dataPoints.count,
-//                             pointSize: dataSets.pointStyle.pointSize,
-//                             color: dataSets.pointStyle.fillColour)
-//                }
                 Point(value: dataSets.dataPoints[index].value,
                        index: index,
                        minValue: minValue,
@@ -101,18 +98,20 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                             .stroke(dataSets.dataPoints[index].pointColour?.border ?? dataSets.pointStyle.borderColour,
                                     lineWidth: dataSets.pointStyle.lineWidth)
                     })
-//                    .overlay(
-//                                    Text("\(dataSets.dataPoints[index].value)")
-//                                        //Limit to 1 line until your letterLimit
-//                                        .lineLimit(1)
-//                                        //Clips it to shape
-//                                        .clipShape(ContainerRelativeShape()).padding()
-//                                        .foregroundColor(Color.red)
-//                                        //This makes super tiny letters so adjust to your use case
-//                                        .minimumScaleFactor(0.1)
-//                                    
-//                                )
-
+                if dataSets.pointStyle.showValue {
+                    GeometryReader { geometry in
+                        TextView(value: dataSets.dataPoints[index].value,
+                                 range: range,
+                                 height: geometry.size.height,
+                                 minValue: minValue,
+                                 index: index,
+                                 width: geometry.size.width,
+                                 count: dataSets.dataPoints.count,
+                                 pointSize: dataSets.pointStyle.pointSize,
+                                 color: dataSets.pointStyle.fillColour,
+                                 font: dataSets.pointStyle.valueFont)
+                    }
+                }
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
                 self.startAnimation = true
@@ -120,6 +119,8 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
             .animateOnDisappear(disabled: disableAnimation, using: animation) {
                 self.startAnimation = false
             }
+            
+
             
         case .filledOutLine:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
@@ -151,10 +152,18 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                                     .foregroundColor(dataSets.dataPoints[index].pointColour?.fill ?? dataSets.pointStyle.fillColour)
                     )
                 if dataSets.pointStyle.showValue {
-                    Text("\(dataSets.dataPoints[index].value)")
-                        .font(Font.system(size: 7.0))
-                        .foregroundColor(dataSets.pointStyle.fillColour)
-                        .frame(alignment: .center)
+                    GeometryReader { geometry in
+                        TextView(value: dataSets.dataPoints[index].value,
+                                 range: range,
+                                 height: geometry.size.height,
+                                 minValue: minValue,
+                                 index: index,
+                                 width: geometry.size.width,
+                                 count: dataSets.dataPoints.count,
+                                 pointSize: dataSets.pointStyle.pointSize,
+                                 color: dataSets.pointStyle.fillColour,
+                                 font: dataSets.pointStyle.valueFont)
+                    }
                 }
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
@@ -186,7 +195,10 @@ struct TextView: View {
     var count: Int
     var pointSize: CGFloat
     var color: Color
+    var font: Font
         
+    @State var sizeOfText: CGSize = CGSize(width: 0, height: 0)
+    
     var body: some View {
         let x: CGFloat = width / CGFloat(count-1)
         let y: CGFloat = height / CGFloat(range)
@@ -195,13 +207,25 @@ struct TextView: View {
         let pointX: CGFloat = (CGFloat(index) * x) - offset
         let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + height) - offset
 
-        ZStack {
-            Text("\(value)")
-                .font(Font.system(size: 7.0))
-                .foregroundColor(color)
-                .position(x: pointX, y: pointY + height)
-                .frame(alignment: .center)
-            
-        }
+        Text("\(Int(value))")
+            .font(font)
+            .frame(alignment: .center)
+            .foregroundColor(color)
+            .background(GeometryReader { (geometryProxy : GeometryProxy) in
+                            HStack {}
+                            .onAppear {
+                                sizeOfText = geometryProxy.size
+                            }
+                        })
+            .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height + 10)
+    }
+}
+
+
+extension String {
+   func widthOfString(usingFont font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.width
     }
 }

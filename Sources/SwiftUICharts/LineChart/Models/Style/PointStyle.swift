@@ -35,6 +35,9 @@ public struct PointStyle: Hashable {
     /// show value
     public var showValue: Bool
 
+    /// show value
+    public var valueFont: Font
+
     /// Styling for the point markers.
     /// - Parameters:
     ///   - pointSize: Overall size of the mark
@@ -50,7 +53,8 @@ public struct PointStyle: Hashable {
         lineWidth: CGFloat = 3,
         pointType: PointType = .outline,
         pointShape: PointShape = .circle,
-        showValue: Bool = false
+        showValue: Bool = false,
+        valueFont: Font = Font.system(size: 8.0)
     ) {
         self.pointSize = pointSize
         self.borderColour = borderColour
@@ -59,6 +63,7 @@ public struct PointStyle: Hashable {
         self.pointType = pointType
         self.pointShape = pointShape
         self.showValue = showValue
+        self.valueFont = valueFont
     }
 }
 

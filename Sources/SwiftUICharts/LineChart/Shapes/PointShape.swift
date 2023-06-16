@@ -43,7 +43,8 @@ internal struct Point: Shape {
     
     internal func path(in rect: CGRect) -> Path {
         var path = Path()
-        
+        print("rect x: \(rect.width) | y: \(rect.height)")
+
         let x: CGFloat = rect.width / CGFloat(datapointCount-1)
         let y: CGFloat = rect.height / CGFloat(range)
         let offset: CGFloat = pointSize / CGFloat(2)
@@ -74,8 +75,5 @@ internal struct Point: Shape {
         case .roundSquare:
             path.addRoundedRect(in: point, cornerSize: CGSize(width: 3, height: 3))
         }
-        let label = NSMutableAttributedString(string: "label")
-        label.draw(at: CGPoint(x:point.origin.x, y:point.origin.y + 10))
-        label.draw(in: point)
     }
 }
