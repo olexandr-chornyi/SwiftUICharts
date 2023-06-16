@@ -69,7 +69,8 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                                  count: dataSets.dataPoints.count,
                                  pointSize: dataSets.pointStyle.pointSize,
                                  color: dataSets.pointStyle.fillColour,
-                                 font: dataSets.pointStyle.valueFont)
+                                 font: dataSets.pointStyle.valueFont,
+                                 ignoreZero: dataSets.style.ignoreZero)
                     }
                 }
             }
@@ -109,7 +110,8 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                                  count: dataSets.dataPoints.count,
                                  pointSize: dataSets.pointStyle.pointSize,
                                  color: dataSets.pointStyle.fillColour,
-                                 font: dataSets.pointStyle.valueFont)
+                                 font: dataSets.pointStyle.valueFont,
+                                 ignoreZero: dataSets.style.ignoreZero)
                     }
                 }
             }
@@ -162,7 +164,8 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                                  count: dataSets.dataPoints.count,
                                  pointSize: dataSets.pointStyle.pointSize,
                                  color: dataSets.pointStyle.fillColour,
-                                 font: dataSets.pointStyle.valueFont)
+                                 font: dataSets.pointStyle.valueFont,
+                                 ignoreZero: dataSets.style.ignoreZero)
                     }
                 }
             }
@@ -196,6 +199,7 @@ struct TextView: View {
     var pointSize: CGFloat
     var color: Color
     var font: Font
+    var ignoreZero: Bool
         
     @State var sizeOfText: CGSize = CGSize(width: 0, height: 0)
     
@@ -207,17 +211,33 @@ struct TextView: View {
         let pointX: CGFloat = (CGFloat(index) * x) - offset
         let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + height) - offset
 
-        Text("\(Int(value))")
-            .font(font)
-            .frame(alignment: .center)
-            .foregroundColor(color)
-            .background(GeometryReader { (geometryProxy : GeometryProxy) in
-                            HStack {}
-                            .onAppear {
-                                sizeOfText = geometryProxy.size
-                            }
-                        })
-            .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height + 10)
+        if !ignoreZero {
+            Text("\(Int(value))")
+                .font(font)
+                .frame(alignment: .center)
+                .foregroundColor(color)
+                .background(GeometryReader { (geometryProxy : GeometryProxy) in
+                                HStack {}
+                                .onAppear {
+                                    sizeOfText = geometryProxy.size
+                                }
+                            })
+                .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height + 10)
+        } else {
+            if value != 0 {
+                Text("\(Int(value))")
+                    .font(font)
+                    .frame(alignment: .center)
+                    .foregroundColor(color)
+                    .background(GeometryReader { (geometryProxy : GeometryProxy) in
+                                    HStack {}
+                                    .onAppear {
+                                        sizeOfText = geometryProxy.size
+                                    }
+                                })
+                    .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height + 10)
+            }
+        }
     }
 }
 
