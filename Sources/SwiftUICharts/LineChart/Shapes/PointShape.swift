@@ -43,7 +43,6 @@ internal struct Point: Shape {
     
     internal func path(in rect: CGRect) -> Path {
         var path = Path()
-        print("rect x: \(rect.width) | y: \(rect.height)")
 
         let x: CGFloat = rect.width / CGFloat(datapointCount-1)
         let y: CGFloat = rect.height / CGFloat(range)

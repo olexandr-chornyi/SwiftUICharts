@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MultiLineChartDemoView: View {
     
-    let data : MultiLineChartData = weekOfData()
+    @State var data : MultiLineChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []))
         
     var body: some View {
         VStack {
@@ -24,33 +25,37 @@ struct MultiLineChartDemoView: View {
                 .headerBox(chartData: data)
                 .legends(chartData: data, columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], chartsType: .pie)
                 .id(data.id)
-                .frame(minWidth: 150, maxWidth: 900, minHeight: 150, idealHeight: 500, maxHeight: 600, alignment: .center)
+                .frame(minWidth: 150, maxWidth: 900, minHeight: 150, idealHeight: 150, maxHeight: 200, alignment: .center)
                 .padding(.horizontal)
+        }
+        .onAppear {
+            data = weekOfData()
         }
         .navigationTitle("Week of Data")
     }
 
-    static func weekOfData() -> MultiLineChartData {
+    func weekOfData() -> MultiLineChartData {
         let data = MultiLineDataSet(dataSets: [
             LineDataSet(dataPoints: [
+                LineChartDataPoint(value: 0, xAxisLabel: "M", description: "May"),
                 LineChartDataPoint(value: 12.1, xAxisLabel: "M", description: "May"),
                 LineChartDataPoint(value: 15.1, xAxisLabel: "J", description: "June"),
                 LineChartDataPoint(value: 17.3, xAxisLabel: "J", description: "July"),
+                LineChartDataPoint(value: 0),
             ],
             legendTitle: "London",
-                        pointStyle: PointStyle(fillColour: .blue, pointType: .outline, pointShape: .circle, showValue: true),
-            style: LineStyle(lineColour: ColourStyle(colour: .red), lineType: .line)),
+                        pointStyle: PointStyle( borderColour: .blue, fillColour: .blue, pointType: .filledOutLine, pointShape: .circle, showValue: true),
+            style: LineStyle(lineColour: ColourStyle(colour: .blue), lineType: .line, ignoreZero: true)),
             
         ])
         
         return MultiLineChartData(dataSets: data,
-                                  xAxisLabels: ["January", "December"],
                                   chartStyle: LineChartStyle(infoBoxPlacement: .floating,
                                                              markerType: .full(attachment: .line(dot: .style(DotStyle()))),
-                                                             xAxisGridStyle: GridStyle(numberOfLines: 12),
-                                                             yAxisGridStyle: GridStyle(numberOfLines: 5),
-                                                             yAxisNumberOfLabels: 5,
-                                                             baseline: .minimumValue,
+                                                             xAxisGridStyle: GridStyle(numberOfLines: 10),
+                                                             yAxisGridStyle: GridStyle(numberOfLines: 4),
+                                                             yAxisNumberOfLabels: 4,
+                                                             baseline: .zero,
                                                              topLine: .maximumValue))
     }
 }
