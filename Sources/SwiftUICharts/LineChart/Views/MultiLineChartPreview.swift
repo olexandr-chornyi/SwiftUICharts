@@ -49,7 +49,7 @@ struct MultiLineChartDemoView: View {
                         touchAction: { id in
                             print("222: \(id)")
                             data.dataSets.dataSets.forEach { lineDataSet in
-                                lineDataSet.pointStyle.hideValue()
+                                lineDataSet.pointStyle.setShowValue(state: false)
                             }
 //                            data.dataSets.dataSets.forEach { lineDataSet in
 //                                print("show values: \(lineDataSet.pointStyle.showValue)")
