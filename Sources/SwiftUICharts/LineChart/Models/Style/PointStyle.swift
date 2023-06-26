@@ -77,8 +77,8 @@ public class PointStyle: Hashable, ObservableObject {
         self.valueFont = valueFont
     }
     
-    func hideValue() {
-        showValue = false
+    public func setShowValue(state: Bool) {
+        showValue = state
     }
 }
 

@@ -48,9 +48,9 @@ struct MultiLineChartDemoView: View {
             style: LineStyle(lineColour: ColourStyle(colour: .blue), lineType: .line, ignoreZero: true),
                         touchAction: { id in
                             print("222: \(id)")
-//                            data.dataSets.dataSets.forEach { lineDataSet in
-//                                lineDataSet.pointStyle.hideValue()
-//                            }
+                            data.dataSets.dataSets.forEach { lineDataSet in
+                                lineDataSet.pointStyle.hideValue()
+                            }
 //                            data.dataSets.dataSets.forEach { lineDataSet in
 //                                print("show values: \(lineDataSet.pointStyle.showValue)")
 //                            }
