@@ -35,7 +35,7 @@ struct MultiLineChartDemoView: View {
     }
 
     func weekOfData() -> MultiLineChartData {
-        let data = MultiLineDataSet(dataSets: [
+        let dataSet = MultiLineDataSet(dataSets: [
             LineDataSet(dataPoints: [
                 LineChartDataPoint(value: 0, xAxisLabel: "M", description: "May"),
                 LineChartDataPoint(value: 12.1, xAxisLabel: "M", description: "May"),
@@ -45,18 +45,31 @@ struct MultiLineChartDemoView: View {
             ],
             legendTitle: "London",
                         pointStyle: PointStyle( borderColour: .blue, fillColour: .blue, pointType: .filledOutLine, pointShape: .circle, showValue: true),
-            style: LineStyle(lineColour: ColourStyle(colour: .blue), lineType: .line, ignoreZero: true)),
+            style: LineStyle(lineColour: ColourStyle(colour: .blue), lineType: .line, ignoreZero: true),
+                        touchAction: { id in
+                            print("222: \(id)")
+//                            data.dataSets.dataSets.forEach { lineDataSet in
+//                                lineDataSet.pointStyle.hideValue()
+//                            }
+//                            data.dataSets.dataSets.forEach { lineDataSet in
+//                                print("show values: \(lineDataSet.pointStyle.showValue)")
+//                            }
+//                            print("222: \(id)")
+                        }),
             
         ])
         
-        return MultiLineChartData(dataSets: data,
-                                  chartStyle: LineChartStyle(infoBoxPlacement: .floating,
-                                                             markerType: .full(attachment: .line(dot: .style(DotStyle()))),
-                                                             xAxisGridStyle: GridStyle(numberOfLines: 10),
-                                                             yAxisGridStyle: GridStyle(numberOfLines: 4),
-                                                             yAxisNumberOfLabels: 4,
-                                                             baseline: .zero,
-                                                             topLine: .maximumValue))
+        
+        let multiLineChartData = MultiLineChartData(dataSets: dataSet,
+                                                    chartStyle: LineChartStyle(infoBoxPlacement: .floating,
+                                                                               markerType: .full(attachment: .line(dot: .style(DotStyle()))),
+                                                                               xAxisGridStyle: GridStyle(numberOfLines: 10),
+                                                                               yAxisGridStyle: GridStyle(numberOfLines: 4),
+                                                                               yAxisNumberOfLabels: 4,
+                                                                               baseline: .zero,
+                                                                               topLine: .maximumValue))
+        
+        return multiLineChartData
     }
 }
 

@@ -14,6 +14,9 @@ public struct LegendData: Hashable, Identifiable {
     
     public var id: UUID
     
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id.uuidString)
+    }
     /// The type of chart being used.
     public var chartType: ChartType
     
@@ -28,6 +31,12 @@ public struct LegendData: Hashable, Identifiable {
     
     public var colour: ColourStyle
     
+    public var touchAction: ((String) -> Void)?
+
+    public static func == (lhs: LegendData, rhs: LegendData) -> Bool {
+        lhs.id.uuidString == rhs.id.uuidString
+    }
+
     /// Legend.
     /// - Parameters:
     ///   - legend: Text to be displayed.
@@ -40,7 +49,8 @@ public struct LegendData: Hashable, Identifiable {
                 colour: ColourStyle,
                 strokeStyle: Stroke?,
                 prioity: Int,
-                chartType: ChartType
+                chartType: ChartType,
+                touchAction: ((String) -> Void)? = nil
     ) {
         self.id = id
         self.legend = legend
@@ -48,6 +58,10 @@ public struct LegendData: Hashable, Identifiable {
         self.strokeStyle = strokeStyle
         self.prioity = prioity
         self.chartType = chartType
-        
+        self.touchAction = touchAction
+    }
+    
+    public mutating func setTouchAction(touchAction: ((String) -> Void)?) {
+        self.touchAction = touchAction
     }
 }

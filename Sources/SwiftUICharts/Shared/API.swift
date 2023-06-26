@@ -92,6 +92,10 @@ extension LegendData {
                                 .font(font)
                                 .foregroundColor(textColor)
                         }
+//                        .onTapGesture {
+//                            print("touch action")
+//                           self.touchAction?(self.id.uuidString)
+//                        }
                     } else if let colours = self.colour.colours  {
                         HStack {
                             LegendLine(width: width)
@@ -104,6 +108,10 @@ extension LegendData {
                                 .font(font)
                                 .foregroundColor(textColor)
                         }
+//                        .onTapGesture {
+//                            print("touch action")
+//                            self.touchAction?(self.id.uuidString)
+//                        }
                     } else if let stops = self.colour.stops {
                         let stops = GradientStop.convertToGradientStopsArray(stops: stops)
                         HStack {
@@ -117,6 +125,10 @@ extension LegendData {
                                 .font(font)
                                 .foregroundColor(textColor)
                         }
+//                        .onTapGesture {
+//                            print("touch action")
+//                            self.touchAction?(self.id.uuidString)
+//                        }
                     }
                 }
                 
@@ -130,6 +142,10 @@ extension LegendData {
                             Text(LocalizedStringKey(self.legend))
                                 .font(font)
                         }
+//                        .onTapGesture {
+//                            print("touch action")
+//                           self.touchAction?(self.id.uuidString)
+//                        }
                     } else if let colours = self.colour.colours,
                               let startPoint = self.colour.startPoint,
                               let endPoint = self.colour.endPoint
@@ -143,6 +159,10 @@ extension LegendData {
                             Text(LocalizedStringKey(self.legend))
                                 .font(font)
                         }
+//                        .onTapGesture {
+//                            print("touch action")
+//                           self.touchAction?(self.id.uuidString)
+//                        }
                     } else if let stops = self.colour.stops,
                               let startPoint = self.colour.startPoint,
                               let endPoint = self.colour.endPoint
@@ -157,7 +177,11 @@ extension LegendData {
                             Text(LocalizedStringKey(self.legend))
                                 .font(font)
                         }
-                    }
+//                        .onTapGesture {
+//                            print("touch action")
+//                            self.touchAction?(self.id.uuidString)
+//                        }
+                   }
                 }
             case .pie:
                 if let colour = self.colour.colour {
@@ -168,6 +192,10 @@ extension LegendData {
                         Text(LocalizedStringKey(self.legend))
                             .font(font)
                     }
+//                    .onTapGesture {
+//                        print("touch action")
+//                       self.touchAction?(self.id.uuidString)
+//                    }
                 } else if let colours = self.colour.colours,
                           let startPoint = self.colour.startPoint,
                           let endPoint = self.colour.endPoint
@@ -181,7 +209,10 @@ extension LegendData {
                         Text(LocalizedStringKey(self.legend))
                             .font(font)
                     }
-                    
+//                    .onTapGesture {
+//                        print("touch action")
+//                        self.touchAction?(self.id.uuidString)
+//                    }
                 } else if let stops = self.colour.stops,
                           let startPoint = self.colour.startPoint,
                           let endPoint = self.colour.endPoint
@@ -196,8 +227,16 @@ extension LegendData {
                         Text(LocalizedStringKey(self.legend))
                             .font(font)
                     }
+//                    .onTapGesture {
+//                        print("touch action")
+//                        self.touchAction?(self.id.uuidString)
+//                    }
                 }
             }
+        }
+        .onTapGesture {
+            print("touch action")
+            self.touchAction?(self.id.uuidString)
         }
     }
     /**

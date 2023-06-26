@@ -570,7 +570,8 @@ extension CTLineChartDataProtocol {
                                            colour: ColourStyle(colour: colour),
                                            strokeStyle: dataSet.style.strokeStyle,
                                            prioity: 1,
-                                           chartType: .line))
+                                           chartType: .line,
+                                           touchAction: dataSet.touchAction))
         } else if dataSet.style.lineColour.colourType == .gradientColour,
                   let colours = dataSet.style.lineColour.colours
         {
@@ -581,7 +582,8 @@ extension CTLineChartDataProtocol {
                                                                endPoint: .trailing),
                                            strokeStyle: dataSet.style.strokeStyle,
                                            prioity: 1,
-                                           chartType: .line))
+                                           chartType: .line,
+                                           touchAction: dataSet.touchAction))
         } else if dataSet.style.lineColour.colourType == .gradientStops,
                   let stops = dataSet.style.lineColour.stops
         {
@@ -592,7 +594,8 @@ extension CTLineChartDataProtocol {
                                                                endPoint: .trailing),
                                            strokeStyle: dataSet.style.strokeStyle,
                                            prioity: 1,
-                                           chartType: .line))
+                                           chartType: .line,
+                                           touchAction: dataSet.touchAction))
         }
     }
 }
