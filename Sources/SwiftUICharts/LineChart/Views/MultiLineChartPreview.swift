@@ -22,8 +22,7 @@ struct MultiLineChartDemoView: View {
                 .xAxisLabels(chartData: data)
                 .yAxisLabels(chartData: data, specifier: "%.01f")
                 .floatingInfoBox(chartData: data)
-                .headerBox(chartData: data)
-                .legends(chartData: data, columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], chartsType: .pie)
+                .legends(chartData: data, columns: [GridItem(.flexible(), spacing: 24), GridItem(.flexible()), GridItem(.flexible())], chartsType: .pie, space: 20.0)
                 .id(data.id)
                 .frame(minWidth: 150, maxWidth: 900, minHeight: 150, idealHeight: 150, maxHeight: 200, alignment: .center)
                 .padding(.horizontal)
@@ -37,7 +36,7 @@ struct MultiLineChartDemoView: View {
     func weekOfData() -> MultiLineChartData {
         let dataSet = MultiLineDataSet(dataSets: [
             LineDataSet(dataPoints: [
-                LineChartDataPoint(value: 0, xAxisLabel: "M", description: "May"),
+                LineChartDataPoint(value: 0),
                 LineChartDataPoint(value: 12.1, xAxisLabel: "M", description: "May"),
                 LineChartDataPoint(value: 15.1, xAxisLabel: "J", description: "June"),
                 LineChartDataPoint(value: 17.3, xAxisLabel: "J", description: "July"),
@@ -56,6 +55,26 @@ struct MultiLineChartDemoView: View {
 //                            }
 //                            print("222: \(id)")
                         }),
+            LineDataSet(dataPoints: [
+                LineChartDataPoint(value: 0),
+                LineChartDataPoint(value: 12.1, xAxisLabel: "M", description: "May"),
+                LineChartDataPoint(value: 15.1, xAxisLabel: "J", description: "June"),
+                LineChartDataPoint(value: 17.3, xAxisLabel: "J", description: "July"),
+                LineChartDataPoint(value: 0),
+            ],
+            legendTitle: "London",
+                        pointStyle: PointStyle( borderColour: .blue, fillColour: .blue, pointType: .filledOutLine, pointShape: .circle, showValue: true),
+            style: LineStyle(lineColour: ColourStyle(colour: .blue), lineType: .line, ignoreZero: true),
+                        touchAction: { id in
+                            print("222: \(id)")
+                            data.dataSets.dataSets.forEach { lineDataSet in
+                                lineDataSet.pointStyle.setShowValue(state: false)
+                            }
+//                            data.dataSets.dataSets.forEach { lineDataSet in
+//                                print("show values: \(lineDataSet.pointStyle.showValue)")
+//                            }
+//                            print("222: \(id)")
+                        })
             
         ])
         
@@ -63,7 +82,7 @@ struct MultiLineChartDemoView: View {
         let multiLineChartData = MultiLineChartData(dataSets: dataSet,
                                                     chartStyle: LineChartStyle(infoBoxPlacement: .floating,
                                                                                markerType: .full(attachment: .line(dot: .style(DotStyle()))),
-                                                                               xAxisGridStyle: GridStyle(numberOfLines: 10),
+                                                                               xAxisGridStyle: GridStyle(numberOfLines: 5),
                                                                                yAxisGridStyle: GridStyle(numberOfLines: 4),
                                                                                yAxisNumberOfLabels: 4,
                                                                                baseline: .zero,

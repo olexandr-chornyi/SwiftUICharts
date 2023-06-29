@@ -19,7 +19,8 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
     private let textColor: Color
     private let topPadding: CGFloat
     var chartsType: ChartType = .line
-    
+    var space: CGFloat = 0.0
+
     internal init(
         chartData: T,
         columns: [GridItem],
@@ -27,7 +28,8 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
         font: Font,
         textColor: Color,
         topPadding: CGFloat,
-        chartsType: ChartType = .line
+        chartsType: ChartType = .line,
+        space: CGFloat = 0.0
     ) {
         self.chartData = chartData
         self.columns = columns
@@ -36,6 +38,7 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
         self.textColor = textColor
         self.topPadding = topPadding
         self.chartsType = chartsType
+        self.space = space
     }
     
     internal func body(content: Content) -> some View {
@@ -48,7 +51,8 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
                                width: width,
                                font: font,
                                textColor: textColor,
-                               chartsType: chartsType)
+                               chartsType: chartsType,
+                               space: space)
                         .padding(.top, topPadding)
                 }
             } else { content }
@@ -73,7 +77,8 @@ extension View {
         font: Font = .caption,
         textColor: Color = Color.primary,
         topPadding: CGFloat = 18,
-        chartsType: ChartType = .line
+        chartsType: ChartType = .line,
+        space: CGFloat = 0.0
     ) -> some View {
         self.modifier(Legends(chartData: chartData,
                               columns: columns,
@@ -81,6 +86,7 @@ extension View {
                               font: font,
                               textColor: textColor,
                               topPadding: topPadding,
-                              chartsType: chartsType))
+                              chartsType: chartsType,
+                              space: space))
     }
 }

@@ -18,13 +18,15 @@ internal struct LegendView<T>: View where T: CTChartData {
     private let font: Font
     private let textColor: Color
     var chartsType: ChartType = .line
+    var space: CGFloat = 0.0
     
     internal init(chartData: T,
                   columns: [GridItem],
                   width: CGFloat,
                   font: Font,
                   textColor: Color,
-                  chartsType: ChartType = .line
+                  chartsType: ChartType = .line,
+                  space: CGFloat = 0.0
     ) {
         self.chartData = chartData
         self.columns = columns
@@ -32,12 +34,13 @@ internal struct LegendView<T>: View where T: CTChartData {
         self.font = font
         self.textColor = textColor
         self.chartsType = chartsType
+        self.space = space
     }
     
     internal var body: some View {
         LazyVGrid(columns: columns, alignment: .leading) {
             ForEach(chartData.legends, id: \.id) { legend in
-                legend.getLegend(width: width, font: font, textColor: textColor, chartsType: chartsType)
+                legend.getLegend(width: width, font: font, textColor: textColor, chartsType: chartsType, space: space)
                     .if(scaleLegendBar(legend: legend)) { $0.scaleEffect(1.2, anchor: .leading) }
                     .if(scaleLegendPie(legend: legend)) { $0.scaleEffect(1.2, anchor: .leading) }
                     .accessibilityLabel(LocalizedStringKey(legend.accessibilityLegendLabel()))
