@@ -215,34 +215,34 @@ struct TextView: View {
             Text("\(Int(value))")
                 .font(font)
                 .frame(alignment: .center)
-                .foregroundColor(color)
+                .foregroundColor(Color.white)
                 .background(GeometryReader { (geometryProxy : GeometryProxy) in
                                 HStack {}
                                 .onAppear {
                                     sizeOfText = geometryProxy.size
                                 }
                             })
-                .padding(8)
-                .background(Color.white)
+                .padding(2)
+                .background(color)
                 .clipShape(Capsule())
-                .position(x: pointX + sizeOfText.width/4, y: pointY + 12)
+                .position(x: pointX + sizeOfText.width/2 - 2, y: pointY + 4)
                 .zIndex(100)
         } else {
             if value != 0 {
                 Text("\(Int(value))")
                     .font(font)
                     .frame(alignment: .center)
-                    .padding(8)
-                    .foregroundColor(color)
+                    .padding(2)
+                    .foregroundColor(Color.white)
                     .background(GeometryReader { (geometryProxy : GeometryProxy) in
                                     HStack {}
                                     .onAppear {
                                         sizeOfText = geometryProxy.size
                                     }
                                 })
-                    .background(Color.white)
+                    .background(color)
                     .clipShape(Capsule())
-                    .position(x: pointX + sizeOfText.width/4, y: pointY + 12)
+                    .position(x: pointX + sizeOfText.width/2 - 2, y: pointY + 4)
                     .zIndex(100)
             }
         }
