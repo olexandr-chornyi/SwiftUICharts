@@ -225,7 +225,7 @@ struct TextView: View {
                 .padding(8)
                 .background(Color.white)
                 .clipShape(Capsule())
-                .position(x: pointX + sizeOfText.width/2, y: pointY + 10)
+                .position(x: pointX + sizeOfText.width/4, y: pointY + 12)
                 .zIndex(100)
         } else {
             if value != 0 {
@@ -242,7 +242,7 @@ struct TextView: View {
                                 })
                     .background(Color.white)
                     .clipShape(Capsule())
-                    .position(x: pointX + sizeOfText.width/2, y: pointY + 10)
+                    .position(x: pointX + sizeOfText.width/4, y: pointY + 12)
                     .zIndex(100)
             }
         }
