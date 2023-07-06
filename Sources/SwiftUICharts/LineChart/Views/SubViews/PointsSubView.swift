@@ -222,12 +222,16 @@ struct TextView: View {
                                     sizeOfText = geometryProxy.size
                                 }
                             })
+                .padding(8)
+                .background(Color.white)
+                .clipShape(Capsule())
                 .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height + 10)
         } else {
             if value != 0 {
                 Text("\(Int(value))")
                     .font(font)
                     .frame(alignment: .center)
+                    .padding(8)
                     .foregroundColor(color)
                     .background(GeometryReader { (geometryProxy : GeometryProxy) in
                                     HStack {}
@@ -235,6 +239,8 @@ struct TextView: View {
                                         sizeOfText = geometryProxy.size
                                     }
                                 })
+                    .background(Color.white)
+                    .clipShape(Capsule())
                     .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height + 10)
             }
         }
