@@ -37,8 +37,8 @@ struct MultiLineChartDemoView: View {
         let dataSet = MultiLineDataSet(dataSets: [
             LineDataSet(dataPoints: [
                 LineChartDataPoint(value: 0),
-                LineChartDataPoint(value: 12.1, xAxisLabel: "M", description: "May"),
-                LineChartDataPoint(value: 15.1, xAxisLabel: "J", description: "June"),
+                LineChartDataPoint(value: 1.1, xAxisLabel: "M", description: "May"),
+                LineChartDataPoint(value: 5.1, xAxisLabel: "J", description: "June"),
                 LineChartDataPoint(value: 17.3, xAxisLabel: "J", description: "July"),
                 LineChartDataPoint(value: 0),
             ],
@@ -59,12 +59,12 @@ struct MultiLineChartDemoView: View {
                 LineChartDataPoint(value: 0),
                 LineChartDataPoint(value: 12.1, xAxisLabel: "M", description: "May"),
                 LineChartDataPoint(value: 15.1, xAxisLabel: "J", description: "June"),
-                LineChartDataPoint(value: 17.3, xAxisLabel: "J", description: "July"),
+                LineChartDataPoint(value: 7.3, xAxisLabel: "J", description: "July"),
                 LineChartDataPoint(value: 0),
             ],
             legendTitle: "London",
-                        pointStyle: PointStyle( borderColour: .blue, fillColour: .blue, pointType: .filledOutLine, pointShape: .circle, showValue: true),
-            style: LineStyle(lineColour: ColourStyle(colour: .blue), lineType: .line, ignoreZero: true),
+                        pointStyle: PointStyle( borderColour: .red, fillColour: .red, pointType: .filledOutLine, pointShape: .circle, showValue: true),
+            style: LineStyle(lineColour: ColourStyle(colour: .red), lineType: .line, ignoreZero: true),
                         touchAction: { id in
                             print("222: \(id)")
                             data.dataSets.dataSets.forEach { lineDataSet in
