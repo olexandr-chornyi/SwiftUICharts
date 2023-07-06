@@ -43,6 +43,7 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
         switch dataSets.pointStyle.pointType {
         case .filled:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
+                ZStack {
                 Point(value: dataSets.dataPoints[index].value,
                        index: index,
                        minValue: minValue,
@@ -58,20 +59,23 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                         $0.scale(y: animationValue, anchor: .bottom)
                             .fill(dataSets.dataPoints[index].pointColour?.fill ?? dataSets.pointStyle.fillColour)
                     })
+                }.zIndex(0)
                 if dataSets.pointStyle.showValue {
-                    GeometryReader { geometry in
-                        TextView(value: dataSets.dataPoints[index].value,
-                                 range: range,
-                                 height: geometry.size.height,
-                                 minValue: minValue,
-                                 index: index,
-                                 width: geometry.size.width,
-                                 count: dataSets.dataPoints.count,
-                                 pointSize: dataSets.pointStyle.pointSize,
-                                 color: dataSets.pointStyle.fillColour,
-                                 font: dataSets.pointStyle.valueFont,
-                                 ignoreZero: dataSets.style.ignoreZero)
-                    }
+                    ZStack {
+                        GeometryReader { geometry in
+                            TextView(value: dataSets.dataPoints[index].value,
+                                     range: range,
+                                     height: geometry.size.height,
+                                     minValue: minValue,
+                                     index: index,
+                                     width: geometry.size.width,
+                                     count: dataSets.dataPoints.count,
+                                     pointSize: dataSets.pointStyle.pointSize,
+                                     color: dataSets.pointStyle.fillColour,
+                                     font: dataSets.pointStyle.valueFont,
+                                     ignoreZero: dataSets.style.ignoreZero)
+                        }
+                    }.zIndex(100)
                 }
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
@@ -82,6 +86,7 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
             }
         case .outline:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
+                ZStack {
                 Point(value: dataSets.dataPoints[index].value,
                        index: index,
                        minValue: minValue,
@@ -99,20 +104,23 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                             .stroke(dataSets.dataPoints[index].pointColour?.border ?? dataSets.pointStyle.borderColour,
                                     lineWidth: dataSets.pointStyle.lineWidth)
                     })
+                }.zIndex(0)
                 if dataSets.pointStyle.showValue {
-                    GeometryReader { geometry in
-                        TextView(value: dataSets.dataPoints[index].value,
-                                 range: range,
-                                 height: geometry.size.height,
-                                 minValue: minValue,
-                                 index: index,
-                                 width: geometry.size.width,
-                                 count: dataSets.dataPoints.count,
-                                 pointSize: dataSets.pointStyle.pointSize,
-                                 color: dataSets.pointStyle.fillColour,
-                                 font: dataSets.pointStyle.valueFont,
-                                 ignoreZero: dataSets.style.ignoreZero)
-                    }
+                    ZStack {
+                        GeometryReader { geometry in
+                            TextView(value: dataSets.dataPoints[index].value,
+                                     range: range,
+                                     height: geometry.size.height,
+                                     minValue: minValue,
+                                     index: index,
+                                     width: geometry.size.width,
+                                     count: dataSets.dataPoints.count,
+                                     pointSize: dataSets.pointStyle.pointSize,
+                                     color: dataSets.pointStyle.fillColour,
+                                     font: dataSets.pointStyle.valueFont,
+                                     ignoreZero: dataSets.style.ignoreZero)
+                        }
+                    }.zIndex(100)
                 }
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
@@ -126,14 +134,15 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
             
         case .filledOutLine:
             ForEach(dataSets.dataPoints.indices, id: \.self) { index in
-                Point(value: dataSets.dataPoints[index].value,
-                       index: index,
-                       minValue: minValue,
-                       range: range,
-                       datapointCount: dataSets.dataPoints.count,
-                       pointSize: dataSets.pointStyle.pointSize,
-                       ignoreZero: dataSets.style.ignoreZero,
-                       pointStyle: dataSets.pointStyle.pointShape)
+                ZStack {
+                    Point(value: dataSets.dataPoints[index].value,
+                          index: index,
+                          minValue: minValue,
+                          range: range,
+                          datapointCount: dataSets.dataPoints.count,
+                          pointSize: dataSets.pointStyle.pointSize,
+                          ignoreZero: dataSets.style.ignoreZero,
+                          pointStyle: dataSets.pointStyle.pointShape)
                     .ifElse(!isFilled, if: {
                         $0.trim(to: animationValue)
                             .stroke(dataSets.dataPoints[index].pointColour?.border ?? dataSets.pointStyle.borderColour,
@@ -144,29 +153,32 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
                                     lineWidth: dataSets.pointStyle.lineWidth)
                     })
                     .background(Point(value: dataSets.dataPoints[index].value,
-                                       index: index,
-                                       minValue: minValue,
-                                       range: range,
-                                       datapointCount: dataSets.dataPoints.count,
-                                       pointSize: dataSets.pointStyle.pointSize,
-                                       ignoreZero: dataSets.style.ignoreZero,
-                                       pointStyle: dataSets.pointStyle.pointShape)
-                                    .foregroundColor(dataSets.dataPoints[index].pointColour?.fill ?? dataSets.pointStyle.fillColour)
+                                      index: index,
+                                      minValue: minValue,
+                                      range: range,
+                                      datapointCount: dataSets.dataPoints.count,
+                                      pointSize: dataSets.pointStyle.pointSize,
+                                      ignoreZero: dataSets.style.ignoreZero,
+                                      pointStyle: dataSets.pointStyle.pointShape)
+                        .foregroundColor(dataSets.dataPoints[index].pointColour?.fill ?? dataSets.pointStyle.fillColour)
                     )
+                }.zIndex(0)
                 if dataSets.pointStyle.showValue {
-                    GeometryReader { geometry in
-                        TextView(value: dataSets.dataPoints[index].value,
-                                 range: range,
-                                 height: geometry.size.height,
-                                 minValue: minValue,
-                                 index: index,
-                                 width: geometry.size.width,
-                                 count: dataSets.dataPoints.count,
-                                 pointSize: dataSets.pointStyle.pointSize,
-                                 color: dataSets.pointStyle.fillColour,
-                                 font: dataSets.pointStyle.valueFont,
-                                 ignoreZero: dataSets.style.ignoreZero)
-                    }
+                    ZStack {
+                        GeometryReader { geometry in
+                            TextView(value: dataSets.dataPoints[index].value,
+                                     range: range,
+                                     height: geometry.size.height,
+                                     minValue: minValue,
+                                     index: index,
+                                     width: geometry.size.width,
+                                     count: dataSets.dataPoints.count,
+                                     pointSize: dataSets.pointStyle.pointSize,
+                                     color: dataSets.pointStyle.fillColour,
+                                     font: dataSets.pointStyle.valueFont,
+                                     ignoreZero: dataSets.style.ignoreZero)
+                        }
+                    }.zIndex(100)
                 }
             }
             .animateOnAppear(disabled: disableAnimation, using: animation) {
@@ -211,7 +223,7 @@ struct TextView: View {
         let pointX: CGFloat = (CGFloat(index) * x) - offset
         let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + height) - offset
 
-        var plusMinus: CGFloat = pointY > height/2 ? -1 : 1
+        let plusMinus: CGFloat = pointY > height/2 ? -1 : 1
         
         if !ignoreZero {
             Text("\(Int(value))")
@@ -226,7 +238,7 @@ struct TextView: View {
                             })
                 .background(Color.white)
                 .clipShape(Capsule())
-                .position(x: pointX + sizeOfText.width/2, y: pointY + (sizeOfText.height/2  + 10) * plusMinus)
+                .position(x: pointX + sizeOfText.width/2 - 4, y: pointY + (sizeOfText.height/2  + 10) * plusMinus)
                 .zIndex(100)
         } else {
             if value != 0 {
@@ -242,7 +254,7 @@ struct TextView: View {
                                 })
                     .background(Color.white)
                     .clipShape(Capsule())
-                    .position(x: pointX + sizeOfText.width/2, y: pointY + (sizeOfText.height/2 + 10) * plusMinus)
+                    .position(x: pointX + sizeOfText.width/2 - 4, y: pointY + (sizeOfText.height/2 + 10) * plusMinus)
                     .zIndex(100)
             }
         }
