@@ -225,7 +225,8 @@ struct TextView: View {
                 .padding(8)
                 .background(Color.white)
                 .clipShape(Capsule())
-                .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height + 10)
+                .position(x: pointX + sizeOfText.width/2, y: pointY + 10)
+                .zIndex(100)
         } else {
             if value != 0 {
                 Text("\(Int(value))")
@@ -241,7 +242,8 @@ struct TextView: View {
                                 })
                     .background(Color.white)
                     .clipShape(Capsule())
-                    .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height + 10)
+                    .position(x: pointX + sizeOfText.width/2, y: pointY + 10)
+                    .zIndex(100)
             }
         }
     }
