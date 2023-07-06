@@ -211,38 +211,44 @@ struct TextView: View {
         let pointX: CGFloat = (CGFloat(index) * x) - offset
         let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + height) - offset
 
+        var plusMinus: CGFloat = 1
+        
+        GeometryReader { geometry in
+            Path { path in
+                plusMinus = pointY > geometry.size.height ? -1 : 1
+            }
+        }
+        
         if !ignoreZero {
             Text("\(Int(value))")
                 .font(font)
                 .frame(alignment: .center)
-                .foregroundColor(Color.white)
+                .foregroundColor(color)
                 .background(GeometryReader { (geometryProxy : GeometryProxy) in
                                 HStack {}
                                 .onAppear {
                                     sizeOfText = geometryProxy.size
                                 }
                             })
-                .padding(2)
-                .background(color)
+                .background(Color.white)
                 .clipShape(Capsule())
-                .position(x: pointX + sizeOfText.width/2 - 2, y: pointY + 4)
+                .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height/2 * plusMinus)
                 .zIndex(100)
         } else {
             if value != 0 {
                 Text("\(Int(value))")
                     .font(font)
                     .frame(alignment: .center)
-                    .padding(2)
-                    .foregroundColor(Color.white)
+                    .foregroundColor(color)
                     .background(GeometryReader { (geometryProxy : GeometryProxy) in
                                     HStack {}
                                     .onAppear {
                                         sizeOfText = geometryProxy.size
                                     }
                                 })
-                    .background(color)
+                    .background(Color.white)
                     .clipShape(Capsule())
-                    .position(x: pointX + sizeOfText.width/2 - 2, y: pointY + 4)
+                    .position(x: pointX + sizeOfText.width/2, y: pointY + sizeOfText.height/2 * plusMinus)
                     .zIndex(100)
             }
         }
