@@ -201,6 +201,31 @@ internal struct PointsSubView<DS>: View where DS: CTLineChartDataSet,
 
 struct TextView: View {
     
+    private struct SizePreferenceKey: PreferenceKey {
+            static var defaultValue: CGFloat = .zero
+            static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+                value = max(value, nextValue())
+            }
+        }
+    
+    
+    struct ViewSizeKey: PreferenceKey {
+        static var defaultValue: CGSize = .zero
+        static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+            value = nextValue()
+        }
+    }
+    struct ViewGeometry: View {
+        var body: some View {
+            GeometryReader { geometry in
+                Color.clear
+                    .preference(key: ViewSizeKey.self, value: geometry.size)
+            }
+        }
+    }
+    
+    @State private var textWidth: CGFloat = 8
+    
     var value: Double
     var range: Double
     var height: CGFloat
@@ -224,39 +249,38 @@ struct TextView: View {
         let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + height) - offset
 
         let plusMinus: CGFloat = pointY > height/3 ? -1 : 1
-        let plusMinusOffset: CGFloat = pointY > height/3 ? 2 : 10
+        let plusMinusOffset: CGFloat = pointY > height/3 ? 4 : 12
 
+        
         if !ignoreZero {
             Text("\(Int(value))")
                 .font(font)
+                .fixedSize(horizontal: true, vertical: false)
                 .frame(alignment: .center)
                 .foregroundColor(color)
-                .background(GeometryReader { (geometryProxy : GeometryProxy) in
-                                HStack {}
-                                .onAppear {
-                                    sizeOfText = geometryProxy.size
-                                }
-                            })
+                .background(ViewGeometry())
                 .background(Color.white)
                 .clipShape(Capsule())
-                .position(x: pointX + sizeOfText.width/2, y: pointY + (sizeOfText.height/2  + plusMinusOffset) * plusMinus)
+                .position(x: pointX, y: pointY)
+                .padding(4)
+                .offset(x: textWidth/2, y: (sizeOfText.height/2 + plusMinusOffset) * plusMinus)
                 .zIndex(100)
+                .onPreferenceChange(ViewSizeKey.self) { sizeOfText = $0 }
         } else {
             if value != 0 {
                 Text("\(Int(value))")
                     .font(font)
                     .frame(alignment: .center)
+                    .fixedSize(horizontal: false, vertical: true)
                     .foregroundColor(color)
-                    .background(GeometryReader { (geometryProxy : GeometryProxy) in
-                                    HStack {}
-                                    .onAppear {
-                                        sizeOfText = geometryProxy.size
-                                    }
-                                })
+                    .background(ViewGeometry())
                     .background(Color.white)
                     .clipShape(Capsule())
-                    .position(x: pointX + sizeOfText.width/2, y: pointY + (sizeOfText.height/2 + plusMinusOffset) * plusMinus)
+                    .padding(4)
+                    .position(x: pointX, y: pointY)
+                    .offset(x: textWidth/2, y: (sizeOfText.height/2 + plusMinusOffset) * plusMinus)
                     .zIndex(100)
+                    .onPreferenceChange(ViewSizeKey.self) { sizeOfText = $0 }
             }
         }
     }
