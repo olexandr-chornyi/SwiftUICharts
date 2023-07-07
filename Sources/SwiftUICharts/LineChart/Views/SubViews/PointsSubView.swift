@@ -223,8 +223,9 @@ struct TextView: View {
         let pointX: CGFloat = (CGFloat(index) * x) - offset
         let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + height) - offset
 
-        let plusMinus: CGFloat = pointY > height/2 ? -1 : 1
-        
+        let plusMinus: CGFloat = pointY > height/3 ? -1 : 1
+        let plusMinusOffset: CGFloat = pointY > height/3 ? 2 : 10
+
         if !ignoreZero {
             Text("\(Int(value))")
                 .font(font)
@@ -238,7 +239,7 @@ struct TextView: View {
                             })
                 .background(Color.white)
                 .clipShape(Capsule())
-                .position(x: pointX + sizeOfText.width/2 - 4, y: pointY + (sizeOfText.height/2  + 10) * plusMinus)
+                .position(x: pointX + sizeOfText.width/2, y: pointY + (sizeOfText.height/2  + plusMinusOffset) * plusMinus)
                 .zIndex(100)
         } else {
             if value != 0 {
@@ -254,7 +255,7 @@ struct TextView: View {
                                 })
                     .background(Color.white)
                     .clipShape(Capsule())
-                    .position(x: pointX + sizeOfText.width/2 - 4, y: pointY + (sizeOfText.height/2 + 10) * plusMinus)
+                    .position(x: pointX + sizeOfText.width/2, y: pointY + (sizeOfText.height/2 + plusMinusOffset) * plusMinus)
                     .zIndex(100)
             }
         }
