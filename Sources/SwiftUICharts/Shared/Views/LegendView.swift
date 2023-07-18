@@ -43,7 +43,7 @@ internal struct LegendView<T>: View where T: CTChartData {
     internal var body: some View {
         LazyVGrid(columns: columns, alignment: .leading) {
             ForEach(chartData.legends, id: \.id) { legend in
-                legend.getLegend(width: width, font: font, textColor: textColor, chartsType: chartsType, space: space)
+                legend.getLegend(width: width, font: font, selectedFont: selectedFont, textColor: textColor, chartsType: chartsType, space: space)
                     .if(scaleLegendBar(legend: legend)) { $0.scaleEffect(1.2, anchor: .leading) }
                     .if(scaleLegendPie(legend: legend)) { $0.scaleEffect(1.2, anchor: .leading) }
                     .accessibilityLabel(LocalizedStringKey(legend.accessibilityLegendLabel()))
