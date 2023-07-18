@@ -28,6 +28,7 @@ public struct RangedLineDataSet: CTRangedLineChartDataSet, DataFunctionsProtocol
     public var legendFillTitle: String
     public var pointStyle: PointStyle
     public var style: RangedLineStyle
+    public var isSelected: Bool = false
     public var touchAction: ((String) -> Void)?
     
     /// Initialises a data set for a line in a ranged line chart.
@@ -43,6 +44,7 @@ public struct RangedLineDataSet: CTRangedLineChartDataSet, DataFunctionsProtocol
         legendFillTitle: String = "",
         pointStyle: PointStyle = PointStyle(),
         style: RangedLineStyle = RangedLineStyle(),
+        isSelected: Bool = false,
         touchAction: ((String) -> Void)? = nil
     ) {
         self.dataPoints = dataPoints
@@ -50,6 +52,7 @@ public struct RangedLineDataSet: CTRangedLineChartDataSet, DataFunctionsProtocol
         self.legendFillTitle = legendFillTitle
         self.pointStyle = pointStyle
         self.style = style
+        self.isSelected = isSelected
         self.touchAction = touchAction
     }
     

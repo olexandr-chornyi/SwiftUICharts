@@ -33,6 +33,8 @@ public struct LegendData: Hashable, Identifiable {
     
     public var touchAction: ((String) -> Void)?
 
+    public var isSelected: Bool = false
+
     public static func == (lhs: LegendData, rhs: LegendData) -> Bool {
         lhs.id.uuidString == rhs.id.uuidString
     }
@@ -50,6 +52,7 @@ public struct LegendData: Hashable, Identifiable {
                 strokeStyle: Stroke?,
                 prioity: Int,
                 chartType: ChartType,
+                isSelected: Bool = false,
                 touchAction: ((String) -> Void)? = nil
     ) {
         self.id = id
@@ -58,6 +61,7 @@ public struct LegendData: Hashable, Identifiable {
         self.strokeStyle = strokeStyle
         self.prioity = prioity
         self.chartType = chartType
+        self.isSelected = isSelected
         self.touchAction = touchAction
     }
     

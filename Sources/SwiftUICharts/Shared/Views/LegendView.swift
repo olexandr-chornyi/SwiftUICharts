@@ -16,6 +16,7 @@ internal struct LegendView<T>: View where T: CTChartData {
     private let columns: [GridItem]
     private let width: CGFloat
     private let font: Font
+    private let selectedFont: Font
     private let textColor: Color
     var chartsType: ChartType = .line
     var space: CGFloat = 0.0
@@ -24,6 +25,7 @@ internal struct LegendView<T>: View where T: CTChartData {
                   columns: [GridItem],
                   width: CGFloat,
                   font: Font,
+                  selectedFont: Font,
                   textColor: Color,
                   chartsType: ChartType = .line,
                   space: CGFloat = 0.0
@@ -32,6 +34,7 @@ internal struct LegendView<T>: View where T: CTChartData {
         self.columns = columns
         self.width = width
         self.font = font
+        self.selectedFont = selectedFont
         self.textColor = textColor
         self.chartsType = chartsType
         self.space = space

@@ -571,6 +571,7 @@ extension CTLineChartDataProtocol {
                                            strokeStyle: dataSet.style.strokeStyle,
                                            prioity: 1,
                                            chartType: .line,
+                                           isSelected: dataSet.isSelected,
                                            touchAction: dataSet.touchAction))
         } else if dataSet.style.lineColour.colourType == .gradientColour,
                   let colours = dataSet.style.lineColour.colours
@@ -583,6 +584,7 @@ extension CTLineChartDataProtocol {
                                            strokeStyle: dataSet.style.strokeStyle,
                                            prioity: 1,
                                            chartType: .line,
+                                           isSelected: dataSet.isSelected,
                                            touchAction: dataSet.touchAction))
         } else if dataSet.style.lineColour.colourType == .gradientStops,
                   let stops = dataSet.style.lineColour.stops
@@ -595,6 +597,7 @@ extension CTLineChartDataProtocol {
                                            strokeStyle: dataSet.style.strokeStyle,
                                            prioity: 1,
                                            chartType: .line,
+                                           isSelected: dataSet.isSelected,
                                            touchAction: dataSet.touchAction))
         }
     }

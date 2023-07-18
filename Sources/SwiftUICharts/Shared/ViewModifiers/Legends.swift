@@ -16,6 +16,7 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
     private let columns: [GridItem]
     private let width: CGFloat
     private let font: Font
+    private let selectedFont: Font
     private let textColor: Color
     private let topPadding: CGFloat
     var chartsType: ChartType = .line
@@ -26,6 +27,7 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
         columns: [GridItem],
         width: CGFloat,
         font: Font,
+        selectedFont: Font,
         textColor: Color,
         topPadding: CGFloat,
         chartsType: ChartType = .line,
@@ -35,6 +37,7 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
         self.columns = columns
         self.width = width
         self.font = font
+        self.selectedFont = selectedFont
         self.textColor = textColor
         self.topPadding = topPadding
         self.chartsType = chartsType
@@ -50,6 +53,7 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
                                columns: columns,
                                width: width,
                                font: font,
+                               selectedFont: selectedFont,
                                textColor: textColor,
                                chartsType: chartsType,
                                space: space)
@@ -75,6 +79,7 @@ extension View {
         columns: [GridItem] = [GridItem(.flexible())],
         iconWidth: CGFloat = 40,
         font: Font = .caption,
+        selectedFont: Font = .caption,
         textColor: Color = Color.primary,
         topPadding: CGFloat = 18,
         chartsType: ChartType = .line,
@@ -84,6 +89,7 @@ extension View {
                               columns: columns,
                               width: iconWidth,
                               font: font,
+                              selectedFont: selectedFont,
                               textColor: textColor,
                               topPadding: topPadding,
                               chartsType: chartsType,

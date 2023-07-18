@@ -11,7 +11,8 @@ import Combine
 struct MultiLineChartDemoView: View {
     
     @State var data : MultiLineChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []))
-        
+    
+    
     var body: some View {
         VStack {
             MultiLineChart(chartData: data)
@@ -22,7 +23,7 @@ struct MultiLineChartDemoView: View {
                 .xAxisLabels(chartData: data)
                 .yAxisLabels(chartData: data, specifier: "%.01f")
                 .floatingInfoBox(chartData: data)
-                .legends(chartData: data, columns: [GridItem(.flexible(), spacing: 24), GridItem(.flexible()), GridItem(.flexible())], chartsType: .pie, space: 20.0)
+                .legends(chartData: data, columns: [GridItem(.flexible(), spacing: 24), GridItem(.flexible()), GridItem(.flexible())], font: Font.system(size: 9, weight: .regular), selectedFont: Font.system(size: 9, weight: .bold), chartsType: .pie, space: 20.0)
                 .id(data.id)
                 .frame(minWidth: 150, maxWidth: 900, minHeight: 150, idealHeight: 150, maxHeight: 200, alignment: .center)
                 .padding(.horizontal)
@@ -65,8 +66,9 @@ struct MultiLineChartDemoView: View {
             legendTitle: "London",
                         pointStyle: PointStyle( borderColour: .red, fillColour: .red, pointType: .filledOutLine, pointShape: .circle, showValue: true),
             style: LineStyle(lineColour: ColourStyle(colour: .red), lineType: .line, ignoreZero: true),
+                        isSelected: true,
                         touchAction: { id in
-                            print("222: \(id)")
+                            print("333: \(id)")
                             data.dataSets.dataSets.forEach { lineDataSet in
                                 lineDataSet.pointStyle.setShowValue(state: false)
                             }

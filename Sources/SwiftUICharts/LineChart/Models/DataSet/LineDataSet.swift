@@ -27,7 +27,9 @@ public struct LineDataSet: CTLineChartDataSet, DataFunctionsProtocol {
     public var legendTitle: String
     public var pointStyle: PointStyle
     public var style: LineStyle
+    public var isSelected: Bool = false
     public var touchAction: ((String) -> Void)?
+
     
     /// Initialises a data set for a line in a Line Chart.
     /// - Parameters:
@@ -40,12 +42,14 @@ public struct LineDataSet: CTLineChartDataSet, DataFunctionsProtocol {
         legendTitle: String = "",
         pointStyle: PointStyle = PointStyle(),
         style: LineStyle = LineStyle(),
+        isSelected: Bool = false,
         touchAction: ((String) -> Void)? = nil
     ) {
         self.dataPoints = dataPoints
         self.legendTitle = legendTitle
         self.pointStyle = pointStyle
         self.style = style
+        self.isSelected = isSelected
         self.touchAction = touchAction
     }
     
