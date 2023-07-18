@@ -91,17 +91,17 @@ extension LegendData {
                                 .stroke(colour, style: strokeStyle)
                                 .frame(width: width, height: 3)
                             Spacer().frame(width: space)
-//                            if self.isSelected {
+                            if self.isSelected {
                                 Text(LocalizedStringKey(self.legend))
                                     .font(selectedFont)
                                     .foregroundColor(textColor)
-//                                    .underline(false, color: textColor)
-//                            } else {
-//                                Text(LocalizedStringKey(self.legend))
-//                                    .font(font)
-//                                    .foregroundColor(textColor)
-//                                    .underline(true, color: textColor)
-//                            }
+                                    .underline(false, color: textColor)
+                            } else {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(font)
+                                    .foregroundColor(textColor)
+                                    .underline(true, color: textColor)
+                            }
                         }
                     } else if let colours = self.colour.colours  {
                         HStack {
@@ -203,15 +203,15 @@ extension LegendData {
                             .fill(colour)
                             .frame(width: width / 2, height: width / 2)
                         Spacer().frame(width: space)
-//                        if self.isSelected {
-//                            Text(LocalizedStringKey(self.legend))
-//                                .font(selectedFont)
-//                                .underline(false, color: textColor)
-//                        } else {
+                        if self.isSelected {
+                            Text(LocalizedStringKey(self.legend))
+                                .font(selectedFont)
+                                .underline(false, color: textColor)
+                        } else {
                             Text(LocalizedStringKey(self.legend))
                                 .font(font)
-//                                .underline(true, color: textColor)
-//                        }
+                                .underline(true, color: textColor)
+                        }
                     }
                 } else if let colours = self.colour.colours,
                           let startPoint = self.colour.startPoint,
@@ -224,15 +224,15 @@ extension LegendData {
                                                  endPoint: endPoint))
                             .frame(width: width / 2, height: width / 2)
                         Spacer().frame(width: space)
-//                        if self.isSelected {
-//                            Text(LocalizedStringKey(self.legend))
-//                                .font(selectedFont)
-//                                .underline(false, color: textColor)
-//                        } else {
+                        if self.isSelected {
+                            Text(LocalizedStringKey(self.legend))
+                                .font(selectedFont)
+                                .underline(false, color: textColor)
+                        } else {
                             Text(LocalizedStringKey(self.legend))
                                 .font(font)
-//                                .underline(true, color: textColor)
-//                        }
+                                .underline(true, color: textColor)
+                        }
                     }
                 } else if let stops = self.colour.stops,
                           let startPoint = self.colour.startPoint,
@@ -246,15 +246,15 @@ extension LegendData {
                                                  endPoint: endPoint))
                             .frame(width: width / 2, height: width / 2)
                         Spacer().frame(width: space)
-//                        if self.isSelected {
-//                            Text(LocalizedStringKey(self.legend))
-//                                .font(selectedFont)
-//                                .underline(false, color: textColor)
-//                        } else {
+                        if self.isSelected {
+                            Text(LocalizedStringKey(self.legend))
+                                .font(selectedFont)
+                                .underline(false, color: textColor)
+                        } else {
                             Text(LocalizedStringKey(self.legend))
                                 .font(font)
-//                                .underline(true, color: textColor)
-//                        }
+                                .underline(true, color: textColor)
+                        }
                     }
                 }
             }
