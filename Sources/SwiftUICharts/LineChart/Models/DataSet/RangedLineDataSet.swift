@@ -14,12 +14,22 @@ import SwiftUI
  */
 public struct RangedLineDataSet: CTRangedLineChartDataSet, DataFunctionsProtocol {
     
+    public static func == (lhs: RangedLineDataSet, rhs: RangedLineDataSet) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     public let id: UUID = UUID()
     public var dataPoints: [RangedLineChartDataPoint]
     public var legendTitle: String
     public var legendFillTitle: String
     public var pointStyle: PointStyle
     public var style: RangedLineStyle
+    public var isSelected: Bool = false
+    public var touchAction: ((String) -> Void)?
     
     /// Initialises a data set for a line in a ranged line chart.
     /// - Parameters:
@@ -33,13 +43,17 @@ public struct RangedLineDataSet: CTRangedLineChartDataSet, DataFunctionsProtocol
         legendTitle: String = "",
         legendFillTitle: String = "",
         pointStyle: PointStyle = PointStyle(),
-        style: RangedLineStyle = RangedLineStyle()
+        style: RangedLineStyle = RangedLineStyle(),
+        isSelected: Bool = false,
+        touchAction: ((String) -> Void)? = nil
     ) {
         self.dataPoints = dataPoints
         self.legendTitle = legendTitle
         self.legendFillTitle = legendFillTitle
         self.pointStyle = pointStyle
         self.style = style
+        self.isSelected = isSelected
+        self.touchAction = touchAction
     }
     
     public typealias ID = UUID

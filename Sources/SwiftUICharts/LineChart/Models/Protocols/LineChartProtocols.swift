@@ -90,7 +90,17 @@ public protocol CTLineChartDataSet: CTSingleDataSetProtocol {
      Label to display in the legend.
      */
     var legendTitle: String { get set }
-    
+
+    /**
+     Label to display in the legend.
+     */
+    var touchAction: ((String) -> Void)? { get set }
+
+    /**
+     legend selected
+     */
+    var isSelected: Bool { get set }
+
     /**
      Sets the style for the Data Set (as opposed to Chart Data Style).
      */

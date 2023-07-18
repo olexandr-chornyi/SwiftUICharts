@@ -16,26 +16,32 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
     private let columns: [GridItem]
     private let width: CGFloat
     private let font: Font
+    private let selectedFont: Font
     private let textColor: Color
     private let topPadding: CGFloat
     var chartsType: ChartType = .line
-    
+    var space: CGFloat = 0.0
+
     internal init(
         chartData: T,
         columns: [GridItem],
         width: CGFloat,
         font: Font,
+        selectedFont: Font,
         textColor: Color,
         topPadding: CGFloat,
-        chartsType: ChartType = .line
+        chartsType: ChartType = .line,
+        space: CGFloat = 0.0
     ) {
         self.chartData = chartData
         self.columns = columns
         self.width = width
         self.font = font
+        self.selectedFont = selectedFont
         self.textColor = textColor
         self.topPadding = topPadding
         self.chartsType = chartsType
+        self.space = space
     }
     
     internal func body(content: Content) -> some View {
@@ -47,8 +53,10 @@ internal struct Legends<T>: ViewModifier where T: CTChartData {
                                columns: columns,
                                width: width,
                                font: font,
+                               selectedFont: selectedFont,
                                textColor: textColor,
-                               chartsType: chartsType)
+                               chartsType: chartsType,
+                               space: space)
                         .padding(.top, topPadding)
                 }
             } else { content }
@@ -71,16 +79,20 @@ extension View {
         columns: [GridItem] = [GridItem(.flexible())],
         iconWidth: CGFloat = 40,
         font: Font = .caption,
+        selectedFont: Font = .caption,
         textColor: Color = Color.primary,
         topPadding: CGFloat = 18,
-        chartsType: ChartType = .line
+        chartsType: ChartType = .line,
+        space: CGFloat = 0.0
     ) -> some View {
         self.modifier(Legends(chartData: chartData,
                               columns: columns,
                               width: iconWidth,
                               font: font,
+                              selectedFont: selectedFont,
                               textColor: textColor,
                               topPadding: topPadding,
-                              chartsType: chartsType))
+                              chartsType: chartsType,
+                              space: space))
     }
 }

@@ -12,7 +12,17 @@ import SwiftUI
  
  Point markers are placed on top of the line, marking where the data points are.
  */
-public struct PointStyle: Hashable {
+public class PointStyle: Hashable, ObservableObject {
+    
+    public static func == (lhs: PointStyle, rhs: PointStyle) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    public var id = UUID()
     
     /// Overall size of the mark
     public var pointSize: CGFloat
@@ -33,8 +43,12 @@ public struct PointStyle: Hashable {
     public var pointShape: PointShape
 
     /// show value
-    public var showValue: Bool
+    @State public var showValue: Bool
 
+    /// show value
+    public var valueFont: Font
+
+    var i: Int = 0
     /// Styling for the point markers.
     /// - Parameters:
     ///   - pointSize: Overall size of the mark
@@ -50,7 +64,8 @@ public struct PointStyle: Hashable {
         lineWidth: CGFloat = 3,
         pointType: PointType = .outline,
         pointShape: PointShape = .circle,
-        showValue: Bool = false
+        showValue: Bool = false,
+        valueFont: Font = Font.system(size: 8.0)
     ) {
         self.pointSize = pointSize
         self.borderColour = borderColour
@@ -59,6 +74,11 @@ public struct PointStyle: Hashable {
         self.pointType = pointType
         self.pointShape = pointShape
         self.showValue = showValue
+        self.valueFont = valueFont
+    }
+    
+    public func setShowValue(state: Bool) {
+        showValue = state
     }
 }
 

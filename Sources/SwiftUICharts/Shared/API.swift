@@ -75,8 +75,10 @@ extension LegendData {
     public func getLegend(
         width: CGFloat = 40,
         font: Font = .caption,
+        selectedFont: Font = .caption,
         textColor: Color = .primary,
-        chartsType: ChartType = .line
+        chartsType: ChartType = .line,
+        space: CGFloat = 0.0
     ) -> some View {
         Group {
             switch chartsType {
@@ -88,9 +90,18 @@ extension LegendData {
                             LegendLine(width: width)
                                 .stroke(colour, style: strokeStyle)
                                 .frame(width: width, height: 3)
-                            Text(LocalizedStringKey(self.legend))
-                                .font(font)
-                                .foregroundColor(textColor)
+                            Spacer().frame(width: space)
+                            if self.isSelected {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(selectedFont)
+                                    .foregroundColor(textColor)
+                                    .underline(false, color: textColor)
+                            } else {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(font)
+                                    .foregroundColor(textColor)
+                                    .underline(true, color: textColor)
+                            }
                         }
                     } else if let colours = self.colour.colours  {
                         HStack {
@@ -100,9 +111,18 @@ extension LegendData {
                                                        endPoint: .trailing),
                                         style: strokeStyle)
                                 .frame(width: width, height: 3)
-                            Text(LocalizedStringKey(self.legend))
-                                .font(font)
-                                .foregroundColor(textColor)
+                            Spacer().frame(width: space)
+                            if self.isSelected {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(selectedFont)
+                                    .foregroundColor(textColor)
+                                    .underline(false, color: textColor)
+                            } else {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(font)
+                                    .foregroundColor(textColor)
+                                    .underline(true, color: textColor)
+                            }
                         }
                     } else if let stops = self.colour.stops {
                         let stops = GradientStop.convertToGradientStopsArray(stops: stops)
@@ -113,9 +133,18 @@ extension LegendData {
                                                        endPoint: .trailing),
                                         style: strokeStyle)
                                 .frame(width: width, height: 3)
-                            Text(LocalizedStringKey(self.legend))
-                                .font(font)
-                                .foregroundColor(textColor)
+                            Spacer().frame(width: space)
+                            if self.isSelected {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(selectedFont)
+                                    .foregroundColor(textColor)
+                                    .underline(false, color: textColor)
+                            } else {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(font)
+                                    .foregroundColor(textColor)
+                                    .underline(true, color: textColor)
+                            }
                         }
                     }
                 }
@@ -127,8 +156,16 @@ extension LegendData {
                             Rectangle()
                                 .fill(colour)
                                 .frame(width: width / 2, height: width / 2)
-                            Text(LocalizedStringKey(self.legend))
-                                .font(font)
+                            Spacer().frame(width: space)
+                            if self.isSelected {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(selectedFont)
+                                    .underline(false, color: textColor)
+                            } else {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(font)
+                                    .underline(true, color: textColor)
+                            }
                         }
                     } else if let colours = self.colour.colours,
                               let startPoint = self.colour.startPoint,
@@ -140,8 +177,16 @@ extension LegendData {
                                                      startPoint: startPoint,
                                                      endPoint: endPoint))
                                 .frame(width: width / 2, height: width / 2)
-                            Text(LocalizedStringKey(self.legend))
-                                .font(font)
+                            Spacer().frame(width: space)
+                            if self.isSelected {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(selectedFont)
+                                    .underline(false, color: textColor)
+                            } else {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(font)
+                                    .underline(true, color: textColor)
+                            }
                         }
                     } else if let stops = self.colour.stops,
                               let startPoint = self.colour.startPoint,
@@ -154,10 +199,18 @@ extension LegendData {
                                                      startPoint: startPoint,
                                                      endPoint: endPoint))
                                 .frame(width: width / 2, height: width / 2)
-                            Text(LocalizedStringKey(self.legend))
-                                .font(font)
+                            Spacer().frame(width: space)
+                            if self.isSelected {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(selectedFont)
+                                    .underline(false, color: textColor)
+                            } else {
+                                Text(LocalizedStringKey(self.legend))
+                                    .font(font)
+                                    .underline(true, color: textColor)
+                            }
                         }
-                    }
+                   }
                 }
             case .pie:
                 if let colour = self.colour.colour {
@@ -165,8 +218,16 @@ extension LegendData {
                         Circle()
                             .fill(colour)
                             .frame(width: width / 2, height: width / 2)
-                        Text(LocalizedStringKey(self.legend))
-                            .font(font)
+                        Spacer().frame(width: space)
+                        if self.isSelected {
+                            Text(LocalizedStringKey(self.legend))
+                                .font(selectedFont)
+                                .underline(false, color: textColor)
+                        } else {
+                            Text(LocalizedStringKey(self.legend))
+                                .font(font)
+                                .underline(true, color: textColor)
+                        }
                     }
                 } else if let colours = self.colour.colours,
                           let startPoint = self.colour.startPoint,
@@ -178,10 +239,17 @@ extension LegendData {
                                                  startPoint: startPoint,
                                                  endPoint: endPoint))
                             .frame(width: width / 2, height: width / 2)
-                        Text(LocalizedStringKey(self.legend))
-                            .font(font)
+                        Spacer().frame(width: space)
+                        if self.isSelected {
+                            Text(LocalizedStringKey(self.legend))
+                                .font(selectedFont)
+                                .underline(false, color: textColor)
+                        } else {
+                            Text(LocalizedStringKey(self.legend))
+                                .font(font)
+                                .underline(true, color: textColor)
+                        }
                     }
-                    
                 } else if let stops = self.colour.stops,
                           let startPoint = self.colour.startPoint,
                           let endPoint = self.colour.endPoint
@@ -193,11 +261,23 @@ extension LegendData {
                                                  startPoint: startPoint,
                                                  endPoint: endPoint))
                             .frame(width: width / 2, height: width / 2)
-                        Text(LocalizedStringKey(self.legend))
-                            .font(font)
+                        Spacer().frame(width: space)
+                        if self.isSelected {
+                            Text(LocalizedStringKey(self.legend))
+                                .font(selectedFont)
+                                .underline(false, color: textColor)
+                        } else {
+                            Text(LocalizedStringKey(self.legend))
+                                .font(font)
+                                .underline(true, color: textColor)
+                        }
                     }
                 }
             }
+        }
+        .onTapGesture {
+            print("touch action")
+            self.touchAction?(self.id.uuidString)
         }
     }
     /**
